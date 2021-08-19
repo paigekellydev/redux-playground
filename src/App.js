@@ -7,18 +7,24 @@ import { createStore } from 'redux'
 function App() {
 
   let incrementAction = {type: "INCREMENT"}
-  const store = createStore(increment)
+  const store = createStore(count)
   
-  const increment = (state=0, action) => {
+  // reducer- a function that takes in state & action
+  // count reducer controls state of count only
+  // initialized with state of 0 for count specifically
+  // switch statements always need default case
+
+  function count(state=20, action) {
     switch(action.type) {
       case "INCREMENT":
         return state + 1
-        default:
-          return state
-        }
-      }
-      
-  console.log(store)
+      default:
+        return state
+    }
+  }
+  
+    //
+  console.log(store.getState())
 
   return (
     <div className="App">
