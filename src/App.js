@@ -2,8 +2,24 @@ import React from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './App.css';
+import { createStore } from 'redux'
 
 function App() {
+
+  let incrementAction = {type: "INCREMENT"}
+  
+  const increment = (state=0, action) => {
+    switch(action.type) {
+      case "INCREMENT":
+        return state + 1
+      default:
+        return state
+      }
+    }
+    
+  const store = createStore(increment)
+  console.log(increment)
+
   return (
     <div className="App">
       <header className="App-header">
