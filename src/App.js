@@ -2,13 +2,14 @@ import React from 'react';
 import logo from './logo.svg';
 import { Counter } from './features/counter/Counter';
 import './App.css';
-import { createStore } from 'redux'
+import { createStore, combineReducers } from 'redux'
 
 function App() {
 
   let incrementAction = {type: "INCREMENT"}
-  const store = createStore(count)
-  let counter = store.getState()
+  const reducers = combineReducers({count})
+  const store = createStore(reducers)
+  let counter = 0
   
   // reducer- a function that takes in state & action
   // count reducer controls state of count only
@@ -19,6 +20,8 @@ function App() {
     switch(action.type) {
       case "INCREMENT":
         return state + 1
+      case "DECREMENT":
+        return state - 1
       default:
         return state
     }
@@ -26,25 +29,27 @@ function App() {
 
   const handleClick = () => {
     store.dispatch(incrementAction)
+    console.log(counter)
   }
   
   // store.subscribe takes in a function and everytime state changes
   store.subscribe(() => {
-    // console.log(store.getState())
-    counter = store.getState()
-    // document.getElementById("counter").innerText(counter)
-    console.log(counter)
+    // console.log(store.getState().count)
+    counter = store.getState().count
   })
-  
-    //
-  // console.log(store.getState())
 
+  const displayCount = () => {
+    return (
+      <h2>{counter}</h2>
+    )
+  }
+  
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         {/* <Counter /> */}
-        <h2 id="counter">{counter}</h2>
+        {displayCount()}
         <button onClick={handleClick}>I'm a button</button>
         <p>
           Edit <code>src/App.js</code> and save to reload.
