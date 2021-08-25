@@ -8,13 +8,14 @@ function App() {
 
   let incrementAction = {type: "INCREMENT"}
   const store = createStore(count)
+  let counter = store.getState()
   
   // reducer- a function that takes in state & action
   // count reducer controls state of count only
   // initialized with state of 0 for count specifically
   // switch statements always need default case
 
-  function count(state=20, action) {
+  function count(state=0, action) {
     switch(action.type) {
       case "INCREMENT":
         return state + 1
@@ -22,15 +23,29 @@ function App() {
         return state
     }
   }
+
+  const handleClick = () => {
+    store.dispatch(incrementAction)
+  }
+  
+  // store.subscribe takes in a function and everytime state changes
+  store.subscribe(() => {
+    // console.log(store.getState())
+    counter = store.getState()
+    // document.getElementById("counter").innerText(counter)
+    console.log(counter)
+  })
   
     //
-  console.log(store.getState())
+  // console.log(store.getState())
 
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         {/* <Counter /> */}
+        <h2 id="counter">{counter}</h2>
+        <button onClick={handleClick}>I'm a button</button>
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
