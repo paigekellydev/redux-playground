@@ -4,6 +4,8 @@ import { Counter } from './features/counter/Counter';
 import './App.css';
 import { createStore, combineReducers } from 'redux'
 
+// wrap app in provider which gives access to store
+import { Provider } from 'react-redux'
 function App() {
 
   let incrementAction = {type: "INCREMENT"}
