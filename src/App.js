@@ -28,6 +28,7 @@ function App() {
   }
 
   const handleClick = () => {
+    // store.dispatch is the only way to change state
     store.dispatch(incrementAction)
     console.log(counter)
   }
